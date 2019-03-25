@@ -13,6 +13,7 @@ import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileReader;
+import java.nio.charset.Charset;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
@@ -110,7 +111,8 @@ public class GradleAutomaticBuilder implements AutomaticBuilder {
             build.setStandardError(outputStream);
             build.run();
         } catch (Exception e) {
-            LOGGER.error("Run gradle tasks (standard and error outputs):\n"+outputStream.toByteArray());
+            String outputLog = new String(outputStream.toByteArray(), Charset.defaultCharset());
+            LOGGER.error("Run gradle tasks (standard and error outputs):\n"+outputLog);
             throw new RuntimeException(e);
         } finally {
             connection.close();
