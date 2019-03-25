@@ -110,6 +110,7 @@ public class GradleAutomaticBuilder implements AutomaticBuilder {
             build.setStandardError(outputStream);
             build.run();
         } catch (Exception e) {
+            LOGGER.error("Run gradle tasks (standard and error outputs):\n"+outputStream.toByteArray());
             throw new RuntimeException(e);
         } finally {
             connection.close();
